@@ -1,0 +1,109 @@
+<script>
+    "use strict";
+    function computerPlay() {
+        let randNum = Math.random();
+        if (randNum < 0.33) {
+            return "Paper";
+        }
+        else if (randNum >= 0.33 && randNum < 0.66) {
+            return "Rock";
+        }
+        else {
+            return "Scissors";
+        }
+    }
+
+    function generateTieString(selection) {
+        return `It's a tie! ${selection.charAt(0).toUpperCase() + selection.slice(1).toLowerCase()} ties ${selection.toLowerCase()}.`
+    }
+
+    function generateWinString(playerSelection, computerSelection) {
+        return `You win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase()} beats ${computerSelection.toLowerCase()}.`
+    }
+
+    function generateLoseString(playerSelection, computerSelection) {
+        return `You lose! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase()} loses to ${computerSelection.toLowerCase()}.`
+    }
+
+    function playRound(playerSelection, computerSelection) {
+        if (computerSelection.toLowerCase() == "rock") {
+            if (playerSelection.toLowerCase() == "paper") {
+                return 2;
+            }
+            else if (playerSelection.toLowerCase() == "scissors") {
+                return 0;
+            }
+            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                return 1;
+            }
+            else {
+                return "Invalid choice.";
+            }
+        }
+        else if (computerSelection.toLowerCase() == "paper") {
+            if (playerSelection.toLowerCase() == "scissors") {
+                return 2;
+            }
+            else if (playerSelection.toLowerCase() == "rock") {
+                return 0;
+            }
+            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                return 1;
+            }
+            else {
+                return "Invalid choice.";
+            }
+        }
+        else if (computerSelection.toLowerCase() == "scissors") {
+            if (playerSelection.toLowerCase() == "rock") {
+                return 2;
+            }
+            else if (playerSelection.toLowerCase() == "paper") {
+                return 0;
+            }
+            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                return 1;
+            }
+            else {
+                return "Invalid choice.";
+            }
+        }
+        else {
+            return "Invalid choice.";
+        }
+    }
+
+    function game() {
+        let wins = 0;
+        let ties = 0;
+        let losses = 0;
+
+        for (let i = 0; i < 5; i++) {
+            let playerSelection = prompt("Rock, papers, or scissors?");
+            while (playerSelection.toLowerCase() != "rock" && playerSelection.toLowerCase() != "scissors" && playerSelection.toLowerCase() != "paper") {
+                playerSelection = prompt("Rock, papers, or scissors?");
+            }
+            let computerSelection = computerPlay();
+            let result = playRound(playerSelection, computerSelection);
+            if (result == 2) {
+                wins += 1;
+                console.log(generateWinString(playerSelection, computerSelection));
+            }
+            else if (result == 1) {
+                ties += 1
+                console.log(generateTieString(playerSelection));
+            }
+            else {
+                losses += 1
+                console.log(generateLoseString(playerSelection, computerSelection))
+            }
+        }
+        console.log("Game Over! Stats:");
+        console.log("Wins: " + wins);
+        console.log("Ties: " + ties);
+        console.log("Losses: " + losses);
+    }
+
+    game();
+    
+</script>
